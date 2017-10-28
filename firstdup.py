@@ -1,3 +1,5 @@
+import copy
+
 def firstDuplicate(l1):
 	# Initialize an empty set
 	s = set()
@@ -23,23 +25,48 @@ print firstDuplicate([1,1,1,1,1])
 
 
 def firstNotRepeatingChar(s):
-	# Init an empty set
-	hs = set()
+	nonrepeats = []
+	seen = set()
 
-	# Loop through characters in string
 	for char in s:
-		# For each character, check if already in set
-		# (1) If it is, return that char
-		# (2) If it isn't, add it to the set
-		if char in hs:
-			return char
-		else:
-			hs.add(char)
-	# Reached the end without finding a repeating char
-	# Means there is no repeating elements
-	return "_"
-
+		if char not in seen:
+			nonrepeats.append(char)
+			seen.add(char)
+		elif char in nonrepeats:
+			nonrepeats.remove(char)
+	return nonrepeats[0]
+	
 
 print firstNotRepeatingChar("hello")
 print firstNotRepeatingChar("woah")
-print firstNotRepeatingChar("gggggggg")
+print firstNotRepeatingChar("gaggggggg")
+print firstNotRepeatingChar("bcb")
+
+def rotateImage(a):
+	acopy = copy.deepcopy(a)
+
+	# 0, 0 -> 0, 2
+	# 0, 1 -> 1, 2
+	# 0, 2 -> 2, 2
+	# 1, 0 -> 0, 1
+	# 1, 1 -> 1, 1
+	# 1, 2 -> 2, 1
+	# 2, 0 -> 0, 0
+	# 2, 1 -> 1, 0
+	# 2, 2 -> 2, 0
+
+	for row in range(len(a)):
+		for col in range(len(a[row])):
+			acopy[col][len(a[row])-row-1] = a[row][col]
+
+	return acopy
+
+
+nA = [ [1,2,3], 
+       [4,5,6],
+       [7,8,9] ]
+nB = [ [7,4,1],
+       [8,5,2],
+       [9,6,3] ]
+print rotateImage(nA)
+print rotateImage(nB)
