@@ -70,3 +70,19 @@ nB = [ [7,4,1],
        [9,6,3] ]
 print rotateImage(nA)
 print rotateImage(nB)
+
+
+def removeKFromList(l,k):
+
+	head = l
+	while( head.next != None):
+		nextNode = head.next
+		if nextNode.value == k:
+			head.next = nextNode.next
+		else:
+			head = nextNode
+	if l.value == k:
+		return l.next
+	else:
+		return l
+
